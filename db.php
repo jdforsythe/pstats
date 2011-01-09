@@ -22,34 +22,23 @@ function insert($arr) {
 	$result = mysql_query($query) or die("Error Checking uuid: " . mysql_error());
 
 	if (mysql_num_rows($result) < 1) {
-		$exists = false;
+		// no record exists for this uuid and this app, so insert a new record
+
+		$query = "INSERT INTO " . TABLE . " (appid, appver, webkitver, osbld, model, modelascii, osver, osvermj, osvermn, osverdt, carrier, width, height, locale, uuid, hits) VALUES('" . $arr['appid'] . "', '" . $arr['appver'] . "', '" . $arr['webkitver'] . "', '" . $arr['osbld'] . "', '" . $arr['model'] . "', '" . $arr['modelascii'] . "', '" . $arr['osver'] . "', '" . $arr['osvermj'] . "', '" . $arr['osvermn'] . "', '" . $arr['osverdt'] . "', '" . $arr['carrier'] . "', '" . $arr['width'] . "', '" . $arr['height'] . "', '" . $arr['locale'] . "', '" . $arr['uuid'] . "', '1')"; // '1' hit
+
+		mysql_query($query) or die("Error Inserting: " . mysql_error());
 	}
 
 	else {
-		$exists = true;
+		// there is already a record, so update it
 		$row = mysql_fetch_row($result);
-	}
-
-	// if there is already a row, update
-	if ($exists) {
-
 		$hits = $row[0] + 1;
 
-		$query = "UPDATE " . TABLE . " SET appid='" . $arr['appid'] . "', appver='" . $arr['appver'] . "', webkitver='" . $arr['webkitver'] . "', osbld='" . $arr['osbld'] . "', model='" . $arr['model'] . "', modelascii='" . $arr['modelascii'] . "', osver='" . $arr['osver'] . "', osvermj='" . $arr['osvermj'] . "', osvermn='" . $arr['osvermn'] . "', osverdt='" . $arr['osverdt'] . "', carrier='" . $arr['carrier'] . "', width='" . $arr['width'] . "', height='" . $arr['height'] . "', locale='" . $arr['locale'] . "', hits='$hits' WHERE uuid = '" . $arr['uuid'] . "' AND appid = '" . $arr['appid'] . "' LIMIT 1";
+		$query = "UPDATE " . TABLE . " SET appver='" . $arr['appver'] . "', webkitver='" . $arr['webkitver'] . "', osbld='" . $arr['osbld'] . "', model='" . $arr['model'] . "', modelascii='" . $arr['modelascii'] . "', osver='" . $arr['osver'] . "', osvermj='" . $arr['osvermj'] . "', osvermn='" . $arr['osvermn'] . "', osverdt='" . $arr['osverdt'] . "', carrier='" . $arr['carrier'] . "', width='" . $arr['width'] . "', height='" . $arr['height'] . "', locale='" . $arr['locale'] . "', hits='$hits' WHERE uuid = '" . $arr['uuid'] . "' AND appid = '" . $arr['appid'] . "' LIMIT 1";
 
 		mysql_query($query) or die("Error updating: " . mysql_error());
 	}
 
-	// otherwise, insert a new row
-	else {
-
-		$query = "INSERT INTO " . TABLE . " (appid, appver, webkitver, osbld, model, modelascii, osver, osvermj, osvermn, osverdt, carrier, width, height, locale, uuid, hits) VALUES('" . $arr['appid'] . "', '" . $arr['appver'] . "', '" . $arr['webkitver'] . "', '" . $arr['osbld'] . "', '" . $arr['model'] . "', '" . $arr['modelascii'] . "', '" . $arr['osver'] . "', '" . $arr['osvermj'] . "', '" . $arr['osvermn'] . "', '" . $arr['osverdt'] . "', '" . $arr['carrier'] . "', '" . $arr['width'] . "', '" . $arr['height'] . "', '" . $arr['locale'] . "', '" . $arr['uuid'] . "', '1')";
-
-		echo $query;
-
-		mysql_query($query) or die("Error Inserting: " . mysql_error());
-
-	}
 }
 
 ?>
