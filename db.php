@@ -4,7 +4,7 @@ define("DBSERVER", "localhost");
 define("DBUSER", "kcsw4drv_palmapp");
 define("DBPW", "Olivia1001");
 define("DB", "kcsw4drv_appaccess");
-define("TABLE", "stats");
+define("TABLE", "pstats");
 
 function connectdb() {
 	mysql_connect(DBSERVER, DBUSER, DBPW) or die("Connect Error: " . mysql_error());
