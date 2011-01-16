@@ -24,7 +24,7 @@ function insert($arr) {
 	if (mysql_num_rows($result) < 1) {
 		// no record exists for this uuid and this app, so insert a new record
 
-		$query = "INSERT INTO " . TABLE . " (appid, appver, webkitver, osbld, model, modelascii, osver, osvermj, osvermn, osverdt, carrier, width, height, locale, uuid, hits) VALUES('" . $arr['appid'] . "', '" . $arr['appver'] . "', '" . $arr['webkitver'] . "', '" . $arr['osbld'] . "', '" . $arr['model'] . "', '" . $arr['modelascii'] . "', '" . $arr['osver'] . "', '" . $arr['osvermj'] . "', '" . $arr['osvermn'] . "', '" . $arr['osverdt'] . "', '" . $arr['carrier'] . "', '" . $arr['width'] . "', '" . $arr['height'] . "', '" . $arr['locale'] . "', '" . $arr['uuid'] . "', '1')"; // '1' hit
+		$query = "INSERT INTO " . TABLE . " (appid, appver, webkitver, osbld, model, modelascii, osver, osvermj, osvermn, osverdt, carrier, width, height, locale, uuid, hits, firstuse) VALUES('" . $arr['appid'] . "', '" . $arr['appver'] . "', '" . $arr['webkitver'] . "', '" . $arr['osbld'] . "', '" . $arr['model'] . "', '" . $arr['modelascii'] . "', '" . $arr['osver'] . "', '" . $arr['osvermj'] . "', '" . $arr['osvermn'] . "', '" . $arr['osverdt'] . "', '" . $arr['carrier'] . "', '" . $arr['width'] . "', '" . $arr['height'] . "', '" . $arr['locale'] . "', '" . $arr['uuid'] . "', '1', NOW())"; // '1' hit, first use is NOW()
 
 		mysql_query($query) or die("Error Inserting: " . mysql_error());
 	}
