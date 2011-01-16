@@ -6,18 +6,15 @@
  *
  * http://www.jdf-software.com/pstats
  *
- * usage:
+ * usage (put in stage-controller.js setup() method):
  *
- * var stats = new pstats(this);
+ * var stats = new pstats();
  * stats.send();
  *
- * where "this" is actually just the word "this"
  *
  ******************************/
 
-function pstats(parent) {
-
-	this.cont = parent.controller;
+function pstats() {
 
 	this.data = {};
 
@@ -76,7 +73,8 @@ function pstats(parent) {
 		this.data.locale = Mojo.Locale.getCurrentLocale();
 
 		// get device uuid
-		this.cont.serviceRequest('palm://com.palm.preferences/systemProperties', {
+		//this.controller.serviceRequest('palm://com.palm.preferences/systemProperties', {
+      var req = new Mojo.Service.Request('palm://com.palm.preferences/systemProperties', {
 			method:"Get",
 			parameters:{"key": "com.palm.properties.nduid" },
 			onSuccess: function(response) {
