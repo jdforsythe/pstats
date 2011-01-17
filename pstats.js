@@ -1,19 +1,3 @@
-/******************************
- *
- * pstats - Palm webOS app stats
- * v0.1.0
- * January 4, 2011
- *
- * http://www.jdf-software.com/pstats
- *
- * usage (put in stage-controller.js setup() method):
- *
- * var stats = new pstats();
- * stats.send();
- *
- *
- ******************************/
-
 function pstats() {
 
 	this.data = {};
@@ -25,28 +9,28 @@ function pstats() {
 
 
 	/* methods ***************************************/
-	this.send = function() {
+	this.send = function(url) {
 
 		// see if there's a cookie that has the data stored in it and send from that
 		if (this.cookieData) {
 
 			this.data = this.cookieData;
 
-			this.sendData();
+			this.sendData(url);
 
 		}
 
 		// if there's no cookie, retrieve the data first
 		else {
 
-			this.retrieveData(); // this will eventually call the this.sendData() function
+			this.retrieveData(url); // this will eventually invoke the sendData() method
 
 		}
 
 	}
 
 
-	this.retrieveData = function() {
+	this.retrieveData = function(url) {
 
 		/* data from appinfo.js */
 		this.data.appid = Mojo.appInfo.id;
@@ -87,16 +71,16 @@ function pstats() {
 				this.cookie.put(this.data, expire);
 
 				// send data to server
-				this.sendData();
+				this.sendData(url);
 			}.bind(this)
 		});
 
 	};
 
-	this.sendData = function() {
+	this.sendData = function(url) {
 
 		// do AJAX request
-		var ajxRequest = new Ajax.Request("http://appaccess.jdf-software.com/pstats/save.php", {
+		var ajxRequest = new Ajax.Request(url, {
 			method: 'post',
 			evalJSON: false,
 			parameters: {
