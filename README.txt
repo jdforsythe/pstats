@@ -64,3 +64,5 @@ I'm working on a good interface (for the web and an app for your phone) to read 
 If you want to filter out emulator hits from your results, simply change the line in /show_stats/config.php to read $filterEmulator = true;
 
 If you want to filter out hits from your device in the results, change the line in /show_stats/config.php to read $filterUUID = true; and uncomment the DEFINE statement for UUID and put your device's UUID in. To get your device's uuid test the app once with this turned off and check for the entry. Copy and paste the uuid from the results into /show_stats/config.php. Now your uses will no longer show up in the results table.
+
+Whether you filter these from the results or not, they are still stored in the database, just not shown in the results.
