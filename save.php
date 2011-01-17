@@ -1,6 +1,5 @@
 <?php
 
-//require("localdb.php");
 require("db.php");
 
 connectdb();
