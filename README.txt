@@ -1,5 +1,19 @@
-pstats
-Palm webOS app stats framework
+/******************************
+ *
+ * pstats - Palm webOS app stats
+ * v0.1.1
+ * January 17, 2011
+ *
+ * http://www.jdf-software.com/
+ *
+ * usage (put in stage-assistant.js setup method):
+ *
+ * var stats = new pstats();
+ * stats.send(url);
+ *
+ * where url is the path to save.php on your web server
+ *  (i.e. http://www.mysite.com/pstats/save.php)
+ ******************************/
 
 Requirements:
 -------------
